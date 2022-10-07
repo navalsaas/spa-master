@@ -1,0 +1,62 @@
+/* My Custom CSS */
+
+/* Encobre as tags section com core rosa e padding */
+section { margin-top: 2rem; padding-top: 2em; padding-bottom: 2em;}
+
+/* Para botao de deletar */
+.pull-right {
+	float: right; position: absolute; top: 5px; right: 10px;
+}
+
+/* Cabecalhos dos Cards */
+.card-header { background: #E84A5F; color: white; font-weight: bold; }
+
+/* Corpo dos Cards */
+.card-body { background: #f1dee1;  }
+
+/* Cor dos Icones de Deletar e Favoritar */
+ion-icon { color:  #45171D; }
+
+/* H1´s */
+h1 { border-bottom: 1px solid #ccc; margin-bottom: 2rem; }
+
+/* Tarefas do dias Ckecked Overline */
+input[type=checkbox]:checked + label.strikethrough{
+  text-decoration: line-through;
+}
+
+/* Envolve a coluna de Citacao do dia */
+.citacao-col { border-left: 3px solid #ccc; }
+
+/* Envolve a coluna de Tarefas do Dia */
+.tarefas-col { background-color: #ECF9FFFF; }
+
+/* Encobre cada tarefa em Tarefas */
+.tarefas { margin-bottom: 1rem; }
+
+/* Div do Icone Escolhido */
+.escolha-icone { padding: 2.5rem; background: #fff; border: 1px solid #ccc; }
+
+
+
+
+
+.logo 
+	.icon {
+		float: left;
+		height: 50px;
+		margin-right: 5px;
+	}
+	.logo span {
+	    top: 10px;
+	    position: relative;
+	    font-weight: bold;
+	}
+	.logo small {
+		color: $primary-3;
+	    top: 15px;
+	    position: relative;
+	}
+
+
+.mouse-over { cursor: pointer; }

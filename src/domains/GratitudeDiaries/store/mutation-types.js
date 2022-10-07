@@ -1,0 +1,7 @@
+export const UPDATE_OR_CREATE = 'updateOrCreate'
+export const SET_GRATITUDES = 'setGratitudes'
+export const SET_TODAY = 'setToday'
+export const SET_GRATITUDE_DAY = 'setGratitudeDay'
+export const SET_PAGINATE = 'setPaginate'
+export const SET_PAGE = 'setPage'
+export const SET_FILTER = 'setFilter'
