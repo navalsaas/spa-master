@@ -43,7 +43,7 @@ export default {
 
 <template>
   <div class="btn-group">
-    <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
       {{ areaLabel }}
     </button>
     <div class="dropdown-menu">
