@@ -26,7 +26,11 @@ export default {
   },
   watch: {
     value: {
-      handler: function () {
+      handler: function (newValue, oldValue) {
+        if (newValue === '') {
+          this.inputValue = oldValue
+          return
+        }
         this.inputValue = this.value
       },
       deep: true

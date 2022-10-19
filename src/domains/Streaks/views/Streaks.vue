@@ -48,7 +48,7 @@ export default {
         </div>
         <div class="row">
           <div class="col-12">
-            <streak-form-create></streak-form-create>
+            <streak-form-create v-on:reload="getAll"></streak-form-create>
             <div class="row">
               <div class="col-md-4 p-2" v-for="streak in streaks" v-bind:key="streak.id">
                 <streak v-bind="{ value: streak }" v-on:delete="removeStreak"></streak>

@@ -47,9 +47,8 @@ export default {
     setCurrentArea (area) {
       this.currentArea = area
     },
-    setIcon (icon) {
-      this.currentIcon = icon
-      AreaService.update({ id: this.currentArea.id, icon: icon })
+    setIcon () {
+      AreaService.update({ id: this.currentArea.id, icon: this.currentIcon })
         .then(() => {
           this.getAll()
         })
@@ -90,7 +89,7 @@ export default {
             <div class="modal-body">
               <div class="row">
                 <div class="col-md-7">
-                  <ion-icon v-for="(name, index) in icons" :name="name" size="large" v-bind:key="index" style="cursor: pointer;" v-on:click="setIcon(name)"></ion-icon>
+                  <ion-icon v-for="(name, index) in icons" :name="name" size="large" v-bind:key="index" style="cursor: pointer;" v-on:click="currentIcon = name"></ion-icon>
                 </div>
                 <div class="col-md-5 align-self-center">
                   <div class="escolha-icone rounded text-center">
@@ -100,7 +99,7 @@ export default {
               </div>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Salvar e fechar</button>
+              <button type="button" class="btn btn-secondary" v-on:click="setIcon" data-dismiss="modal">Salvar e fechar</button>
             </div>
           </div>
         </div>
