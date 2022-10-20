@@ -64,7 +64,7 @@ export default {
     },
     setFavorite () {
       this.note.favorite = !this.note.favorite
-      this.updateNote({ id: this.note.id, favorite: !this.note.favorite })
+      this.updateNote({ id: this.note.id, favorite: this.note.favorite })
     },
     updateNote (note) {
       console.log({ note })
