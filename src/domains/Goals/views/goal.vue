@@ -15,6 +15,12 @@ export default {
       required: true
     }
   },
+  watch: {
+    goal: {
+      handler: 'updateArea',
+      deep: true
+    }
+  },
   methods: {
     doConfirmation () {
       this.$confirm({
@@ -30,6 +36,14 @@ export default {
           }
         }
       })
+    },
+    updateArea () {
+      GoalService.update(this.goal)
+        .then(() => {
+        })
+        .catch(() => {
+          alert('Ocorreu um erro ao salvar a área')
+        })
     },
     doDelete () {
       GoalService.delete(this.goal)
