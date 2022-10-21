@@ -71,7 +71,7 @@ export default {
 
 <template>
   <section>
-    <div class="container">
+    <div class="container" v-if="tasks.length">
       <div class="row">
         <div class="col-md-7 tarefas-col">
           <h2></h2>
