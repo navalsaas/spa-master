@@ -26,6 +26,17 @@ export default [
     component: () => import(/* webpackChunkName: "gratitude-diary" */ '../domains/Auth/views/Register.vue')
   },
   {
+    path: '/my-account',
+    name: 'my-account',
+    meta: {
+      requireLogin: true
+    },
+    // route level code-splitting
+    // this generates a separate chunk (gratitude-diary.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () => import(/* webpackChunkName: "gratitude-diary" */ '../domains/MyAccount/views/MyAccount.vue')
+  },
+  {
     path: '/auth/password',
     name: 'auth-password',
     // route level code-splitting

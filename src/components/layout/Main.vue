@@ -35,7 +35,7 @@ export default {
           <div class="logo"><img class="icon bg-primary-2" src="/img/compiling.svg" alt="" data-inject-svg /><span>Brun</span><small>&nbsp;beta</small></div>
         </div>
         <div class="d-none d-md-block ml-auto">Bem-vindo, {{ userFirstName }}!</div>
-        <div class="d-none d-md-block ml-auto"><a href="#">Minha conta</a></div>
+        <div class="d-none d-md-block ml-auto"><a href="/my-account">Minha conta</a></div>
       </nav>
       <router-view />
     </div>
