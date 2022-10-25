@@ -1,5 +1,6 @@
 <script>
 import { mapGetters, mapActions } from 'vuex'
+import GratitudeDiariesService from '@/domains/GratitudeDiaries/services'
 import moment from 'moment'
 import { get } from 'lodash'
 
@@ -69,6 +70,30 @@ export default {
 
           this.gratitude = { ...this.gratitude, date }
         })
+    },
+    doConfirmation () {
+      this.$confirm({
+        title: this.gratitude.what,
+        message: 'Deseja excluir este objetivo?',
+        button: {
+          yes: 'Sim',
+          no: 'Cancel'
+        },
+        callback: confirm => {
+          if (confirm) {
+            this.doDelete()
+          }
+        }
+      })
+    },
+    doDelete () {
+      GratitudeDiariesService.delete(this.gratitude)
+        .then(({ data }) => {
+          this.$emit('delete', this.gratitude)
+        })
+        .catch(() => {
+          alert('Ocorreu um erro na exclusão')
+        })
     }
   }
 }
@@ -82,7 +107,11 @@ export default {
     <div class="card-body">
       <p class="text-danger" v-if="!gratitude.id">Nenhum registro encontrado para {{ parseToday }}.</p>
       <span class="box-textarea mouse-over">
-        <p v-if="!editDate" class="date">{{ date }}</p>
+        <p v-if="!editDate" class="date">{{ date }}
+          <a href="#" v-if="gratitude.date" v-on:click="doConfirmation">
+            <ion-icon name="trash-outline"></ion-icon>
+          </a>
+        </p>
         <input type="date" class="date card-title" v-model="gratitude.date" ref="date" v-if="editDate" v-on:blur="setUpdateDate" />
         <p class="card-title" v-on:click="onUpdate" v-if="!edit">{{ gratitude.what }}</p>
         <textarea maxlength="250" class="box-textarea card-text" rows="10" v-model="gratitude.what" ref="what" v-if="edit" v-on:blur="setUpdate"></textarea>

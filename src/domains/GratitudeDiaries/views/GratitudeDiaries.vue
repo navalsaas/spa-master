@@ -20,7 +20,10 @@ export default {
     GratitudeList
   },
   methods: {
-    ...mapActions('gratitudeDiaries', ['loadGratitudes', 'create'])
+    ...mapActions('gratitudeDiaries', ['loadGratitudes', 'create']),
+    remove () {
+      this.loadGratitudes()
+    }
   },
   mounted () {
     this.loadGratitudes()
@@ -53,7 +56,7 @@ export default {
               </div>
               </div>
               <div class="col-md-8">
-                <gratitude-diary></gratitude-diary>
+                <gratitude-diary v-on:delete="remove"></gratitude-diary>
               </div>
             </div>
             <GratitudeList></GratitudeList>
