@@ -12,7 +12,7 @@ export default {
     icons: [
       'airplane',
       'barbell',
-      'battery-full',
+      'battery',
       'beer',
       'bicycle',
       'boat',
@@ -22,19 +22,35 @@ export default {
       'brush',
       'build',
       'camera',
-      'car-sport',
-      'game-controller',
+      'car',
+      'game',
       'football',
       'heart',
       'home',
       'leaf',
       'moon',
-      'musical-notes',
+      'musical',
       'paw',
       'pulse',
       'trophy',
       'wine',
-      'star'
+      'star',
+      'help1',
+      'help2',
+      'help3',
+      'help4',
+      'help5',
+      'help6',
+      'help7',
+      'help8',
+      'help9',
+      'help10',
+      'help11',
+      'help12',
+      'help13',
+      'help14',
+      'help15',
+      'help16'
     ],
     currentArea: {
       id: null,
@@ -64,6 +80,10 @@ export default {
         .then(() => {
           this.getAll()
         })
+    },
+    getImgUrl (pet) {
+      var images = require.context('../../../assets/', false, /\.png$/)
+      return images('./' + pet + '.png')
     }
   },
   computed: {
@@ -109,11 +129,25 @@ export default {
             <div class="modal-body">
               <div class="row">
                 <div class="col-md-7">
-                  <ion-icon v-for="(name, index) in icons" :name="name" size="large" v-bind:key="index" style="cursor: pointer;" v-on:click="currentIcon = name"></ion-icon>
+                  <img
+                    v-for="(name, index) in icons"
+                    :name="name"
+                    v-bind:key="index"
+                    class="icon bg-primary-2"
+                    v-on:click="currentIcon = name"
+                    :src="getImgUrl(name)"
+                    style="max-height: 35px; cursor: pointer;"
+                  />
                 </div>
                 <div class="col-md-5 align-self-center">
                   <div class="escolha-icone rounded text-center">
-                    <ion-icon v-if="currentIcon" :name="currentIcon" size="large"></ion-icon>
+                    <img
+                      v-if="currentIcon"
+                      :name="currentIcon"
+                      v-bind:key="index"
+                      :src="getImgUrl(currentIcon)"
+                      style="max-height: 40px;"
+                    />
                   </div>
                 </div>
               </div>
