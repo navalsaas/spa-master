@@ -36,7 +36,7 @@ export default {
 
 <template>
   <div class="col-md-3">
-    <div class="card">
+    <div class="card mt-2">
       <div class="card-header">
         <div class="mouse-over"><FInput v-model="area.name">{{ area.name }}</FInput></div>
       </div>

@@ -58,6 +58,21 @@ export default {
         .then(({ data }) => {
           this.areas = data
         })
+    },
+    add () {
+      AreaService.create()
+        .then(() => {
+          this.getAll()
+        })
+    }
+  },
+  computed: {
+    classObject () {
+      return {
+        'mt-5': this.areas.length > 4,
+        'mt-3': this.areas.length <= 4,
+        'ml-3': this.areas.length <= 4
+      }
     }
   },
   mounted () {
@@ -75,6 +90,11 @@ export default {
       </div>
       <div class="row">
         <Area v-for="(area, index) in areas" v-bind="{ area }" v-bind:key="index" v-on:update-icon="setCurrentArea" />
+        <div v-if="this.areas.length < 6">
+          <button type="button" class="btn btn-default btn-circle align-bottom" :class="classObject">
+            <ion-icon name="add-circle-outline" size="small" style="cursor: pointer;" v-on:click="add()"></ion-icon>
+          </button>
+        </div>
       </div>
       <!-- Icon Picker Modal Start -->
       <div class="modal fade" id="areaModal" tabindex="-1" role="dialog" aria-labelledby="areaModalLabel" aria-hidden="true">
@@ -107,3 +127,15 @@ export default {
     </div>
   </section>
 </template>
+
+<style>
+.btn-circle {
+  width: 30px;
+  height: 30px;
+  text-align: center;
+  padding: 6px 0;
+  font-size: 12px;
+  line-height: 1.428571429;
+  border-radius: 15px;
+}
+</style>

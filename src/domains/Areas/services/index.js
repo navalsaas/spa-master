@@ -29,6 +29,18 @@ class AreaService {
       .then(response => response.data || {})
       .catch(err => Promise.reject(err))
   }
+
+  create () {
+    return this
+      .client
+      .post(this.getEndpoint(), {
+        name: 'Nova área',
+        icon: 'star',
+        comments: 'Detalhes'
+      })
+      .then(response => response.data || {})
+      .catch(err => Promise.reject(err))
+  }
 }
 
 export default new AreaService()
