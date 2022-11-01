@@ -11,18 +11,6 @@ export default {
   mounted () {
     this.textareaValue = this.value
   },
-  watch: {
-    value: {
-      handler: function (newValue, oldValue) {
-        if (newValue === '') {
-          this.textareaValue = oldValue
-          return
-        }
-        this.textareaValue = this.value
-      },
-      deep: true
-    }
-  },
   methods: {
     onUpdate () {
       this.edit = true
