@@ -20,14 +20,20 @@ export default {
       }, 100)
     },
     setUpdate () {
-      this.$emit('input', this.inputValue)
+      if (this.inputValue !== '') {
+        this.$emit('input', this.inputValue)
+      }
       this.edit = false
     }
   },
   watch: {
-    value: {
-      handler: function () {
-        this.inputValue = this.value
+    inputValue: {
+      handler: function (newValue, oldValue) {
+        if (newValue === '') {
+          setTimeout(() => {
+            this.inputValue = this.value
+          }, 500)
+        }
       },
       deep: true
     }

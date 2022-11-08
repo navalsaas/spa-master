@@ -33,9 +33,10 @@ export default {
       StreakService.create(this.streak)
         .then(({ data }) => {
           console.log({ data })
+          this.$emit('reload', true)
 
           this.streak = {
-            area_id: null,
+            area_id: this.streak.area_id,
             title: '',
             date_start: null
           }

@@ -1,9 +1,10 @@
 <script>
+import MyAccountService from '@/domains/MyAccount/services'
 import { mapActions } from 'vuex'
 import { isEmpty, first, get } from 'lodash'
 
 export default {
-  name: 'auth-register',
+  name: 'my-account',
   computed: {
     nameError () {
       const { errors } = this
@@ -17,12 +18,21 @@ export default {
       const { user } = this
 
       return !isEmpty(user.name) &&
-        !isEmpty(user.last_name) &&
         !isEmpty(user.email) &&
         !isEmpty(user.password) &&
+        !isEmpty(user.last_name) &&
         !isEmpty(this.password_confirm) &&
         user.password === this.password_confirm
     }
+  },
+  mounted () {
+    MyAccountService.get()
+      .then(({ data }) => {
+        this.user = data
+      })
+      .catch(({ response }) => {
+        console.log({ response })
+      })
   },
   data: () => ({
     errors: {},
@@ -35,21 +45,46 @@ export default {
     }
   }),
   methods: {
-    ...mapActions('auth', ['register']),
-    doRegister () {
+    ...mapActions('auth', ['register', 'logout']),
+    update () {
       const { submitValid } = this
 
       if (!submitValid) {
         return
       }
-      this.register(this.user)
-        .then(() => {
-          this.errors = []
+      MyAccountService.update(this.user)
+        .then(({ data }) => {
+          this.user = data
           this.$router.push({ name: 'dashboard' })
         })
         .catch(({ response }) => {
-          this.errors = get(response, 'data.errors', {})
+          console.log({ response })
         })
+    },
+    async doDelete () {
+      await this.logout()
+      MyAccountService.delete(this.user.id)
+        .then(({ data }) => {
+          this.$router.push({ name: 'auth-login' })
+        })
+        .catch(({ response }) => {
+          console.log({ response })
+        })
+    },
+    remove () {
+      this.$confirm({
+        title: 'Minha conta',
+        message: 'Confirma a exclusão dessa conta??',
+        button: {
+          yes: 'Sim',
+          no: 'Cancel'
+        },
+        callback: confirm => {
+          if (confirm) {
+            this.doDelete()
+          }
+        }
+      })
     }
   }
 }
@@ -62,7 +97,7 @@ export default {
       <div class="container">
         <div class="row">
           <div class="col">
-            <h1>Criar conta</h1>
+            <h1>Minha conta</h1>
           </div>
         </div>
         <form>
@@ -112,15 +147,11 @@ export default {
           </div>
           <div class="row">
             <div class="col-12">
-              <button type="button" v-on:click="doRegister()" class="btn btn-primary mb-2 mx-sm-3" :class="{ disabled: !submitValid }">Criar conta</button>
+              <button type="button" v-on:click="update()" class="btn btn-primary mb-2 mx-sm-3" :class="{ disabled: !submitValid }">Editar conta</button>
+              <button type="button" v-on:click="remove()" class="btn btn-danger mb-2 mx-sm-3" :class="{ disabled: !submitValid }">Remover conta</button>
             </div>
           </div>
         </form>
-        <div class="row">
-          <div class="col-6">
-            <router-link :to="{name: 'auth-login'}">Já tenho uma conta</router-link>
-          </div>
-        </div>
       </div>
     </section>
   </div>

@@ -12,7 +12,7 @@ export default {
     icons: [
       'airplane',
       'barbell',
-      'battery-full',
+      'battery',
       'beer',
       'bicycle',
       'boat',
@@ -22,19 +22,35 @@ export default {
       'brush',
       'build',
       'camera',
-      'car-sport',
-      'game-controller',
+      'car',
+      'game',
       'football',
       'heart',
       'home',
       'leaf',
       'moon',
-      'musical-notes',
+      'musical',
       'paw',
       'pulse',
       'trophy',
       'wine',
-      'star'
+      'star',
+      'help1',
+      'help2',
+      'help3',
+      'help4',
+      'help5',
+      'help6',
+      'help7',
+      'help8',
+      'help9',
+      'help10',
+      'help11',
+      'help12',
+      'help13',
+      'help14',
+      'help15',
+      'help16'
     ],
     currentArea: {
       id: null,
@@ -47,9 +63,8 @@ export default {
     setCurrentArea (area) {
       this.currentArea = area
     },
-    setIcon (icon) {
-      this.currentIcon = icon
-      AreaService.update({ id: this.currentArea.id, icon: icon })
+    setIcon () {
+      AreaService.update({ id: this.currentArea.id, icon: this.currentIcon })
         .then(() => {
           this.getAll()
         })
@@ -59,6 +74,25 @@ export default {
         .then(({ data }) => {
           this.areas = data
         })
+    },
+    add () {
+      AreaService.create()
+        .then(() => {
+          this.getAll()
+        })
+    },
+    getImgUrl (pet) {
+      var images = require.context('../../../assets/', false, /\.png$/)
+      return images('./' + pet + '.png')
+    }
+  },
+  computed: {
+    classObject () {
+      return {
+        'mt-5': this.areas.length > 4,
+        'mt-3': this.areas.length <= 4,
+        'ml-3': this.areas.length <= 4
+      }
     }
   },
   mounted () {
@@ -76,6 +110,11 @@ export default {
       </div>
       <div class="row">
         <Area v-for="(area, index) in areas" v-bind="{ area }" v-bind:key="index" v-on:update-icon="setCurrentArea" />
+        <div v-if="this.areas.length < 6">
+          <button type="button" class="btn btn-default btn-circle align-bottom" :class="classObject">
+            <ion-icon name="add-circle-outline" size="small" style="cursor: pointer;" v-on:click="add()"></ion-icon>
+          </button>
+        </div>
       </div>
       <!-- Icon Picker Modal Start -->
       <div class="modal fade" id="areaModal" tabindex="-1" role="dialog" aria-labelledby="areaModalLabel" aria-hidden="true">
@@ -90,17 +129,31 @@ export default {
             <div class="modal-body">
               <div class="row">
                 <div class="col-md-7">
-                  <ion-icon v-for="(name, index) in icons" :name="name" size="large" v-bind:key="index" style="cursor: pointer;" v-on:click="setIcon(name)"></ion-icon>
+                  <img
+                    v-for="(name, index) in icons"
+                    :name="name"
+                    v-bind:key="index"
+                    class="icon bg-primary-2"
+                    v-on:click="currentIcon = name"
+                    :src="getImgUrl(name)"
+                    style="max-height: 35px; cursor: pointer;"
+                  />
                 </div>
                 <div class="col-md-5 align-self-center">
                   <div class="escolha-icone rounded text-center">
-                    <ion-icon v-if="currentIcon" :name="currentIcon" size="large"></ion-icon>
+                    <img
+                      v-if="currentIcon"
+                      :name="currentIcon"
+                      v-bind:key="index"
+                      :src="getImgUrl(currentIcon)"
+                      style="max-height: 40px;"
+                    />
                   </div>
                 </div>
               </div>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Salvar e fechar</button>
+              <button type="button" class="btn btn-secondary" v-on:click="setIcon" data-dismiss="modal">Salvar e fechar</button>
             </div>
           </div>
         </div>
@@ -108,3 +161,15 @@ export default {
     </div>
   </section>
 </template>
+
+<style>
+.btn-circle {
+  width: 30px;
+  height: 30px;
+  text-align: center;
+  padding: 6px 0;
+  font-size: 12px;
+  line-height: 1.428571429;
+  border-radius: 15px;
+}
+</style>

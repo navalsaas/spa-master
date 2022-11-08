@@ -12,6 +12,10 @@ export default {
     days () {
       const { streak } = this
 
+      if (streak.streak_days === 0) {
+        return 'Ainda não chegou o dia de começar'
+      }
+
       if (streak.streak_days === 1) {
         return 'Você está a 1 dia nesse streak'
       }

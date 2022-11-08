@@ -28,6 +28,9 @@ export default {
 <template>
   <div class="custom-control custom-checkbox">
     <input type="checkbox" class="custom-control-input" :id="`task_${task.id}`" v-model="task.today_is_done">
-    <label class="custom-control-label strikethrough" :for="`task_${task.id}`">{{ task.name }}</label>
+    <label class="custom-control-label strikethrough" :for="`task_${task.id}`">
+      {{ task.name }}
+      <span class="badge badge-danger">{{task.area.name}}</span>
+    </label>
   </div>
 </template>

@@ -1,9 +1,9 @@
 import { api } from '@/support/service'
 
-class AreaService {
+class MyAccountService {
   constructor () {
     this.client = api
-    this.entity = 'areas'
+    this.entity = 'auth'
   }
 
   getEndpoint (id = null) {
@@ -14,10 +14,10 @@ class AreaService {
     return this.entity
   }
 
-  getAll () {
+  get (payload = {}) {
     return this
       .client
-      .get(this.getEndpoint())
+      .get(this.getEndpoint('me'))
       .then(response => response.data || {})
       .catch(err => Promise.reject(err))
   }
@@ -25,22 +25,18 @@ class AreaService {
   update (payload) {
     return this
       .client
-      .put(this.getEndpoint(payload.id), payload)
+      .put(this.getEndpoint('me'), payload)
       .then(response => response.data || {})
       .catch(err => Promise.reject(err))
   }
 
-  create () {
+  delete (id) {
     return this
       .client
-      .post(this.getEndpoint(), {
-        name: 'Nova área',
-        icon: 'star',
-        comments: 'Detalhes'
-      })
+      .delete(this.getEndpoint('me') + '/' + id)
       .then(response => response.data || {})
       .catch(err => Promise.reject(err))
   }
 }
 
-export default new AreaService()
+export default new MyAccountService()
