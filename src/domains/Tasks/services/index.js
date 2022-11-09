@@ -18,7 +18,7 @@ class TasksService {
   getAll (payload = {}) {
     const endpoint = this.getEndpoint()
     const today = get(payload, 'filter.today', false)
-    const url = `${endpoint}&filter[today]=${today}`
+    const url = `${endpoint}?filter[today]=${today}`
 
     return this
       .client
