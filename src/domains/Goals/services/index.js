@@ -17,7 +17,7 @@ class AreaService {
   getAll () {
     return this
       .client
-      .get(this.getEndpoint('?paginate=false'))
+      .get(this.getEndpoint())
       .then(response => response.data || {})
       .catch(err => Promise.reject(err))
   }
