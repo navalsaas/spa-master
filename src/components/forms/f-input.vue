@@ -9,6 +9,11 @@ export default {
     inputValue: null
   }),
   mounted () {
+    if (!this.value) {
+      setTimeout(() => {
+        this.inputValue = this.value
+      }, 100)
+    }
     this.inputValue = this.value
   },
   methods: {
